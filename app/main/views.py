@@ -1,6 +1,7 @@
 import os
 import json
 import hashlib
+import random
 import datetime
 import functools
 
@@ -20,11 +21,12 @@ class Calendar:
     def __init__(self, year=datetime.datetime.now().year, month=datetime.datetime.now().month):
         assert int(month) <= 12
         date = datetime.datetime(year, month, 1, 0, 0)
-        self.month_days = list(self.back_days(year, month))
+        self.month_days = list(self.back_days(year, month))#当月天数
         self.first_day = date.weekday()  # 0 周一 6 周日
+        self.work=['python','php','mysql','html']
 
     def first_line(self, first_day, month_days):  # 每月第一行
-        fl = [month_days.pop(0) for i in range(7 - first_day)]
+        fl = [{month_days.pop(0):random.choice(self.work)} for i in range(7 - first_day)]
         [fl.insert(0, 'null') for i in range(7 - len(fl))]
         return fl
 
@@ -48,7 +50,7 @@ class Calendar:
             line = []
             for i in range(7):
                 if self.month_days:
-                    line.append(self.month_days.pop(0))
+                    line.append({self.month_days.pop(0):random.choice(self.work)})
                 else:
                     line.append('null')
             lines.append(line)
@@ -138,8 +140,6 @@ def index():  # 视图
 def base():
     return render_template('base.html', **locals())
 
-
-import hashlib
 
 
 def setPassword(password):

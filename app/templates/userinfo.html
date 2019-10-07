@@ -5,51 +5,51 @@
     <!--个人详情 -->
     <div class="row">
         <div class="col-lg-12">
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary" style="text-align: center">个人详情</h6>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary" style="text-align: center">个人详情</h6>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <td rowspan="4">
+                                <img style="width: 75%;height: 75%" src="/static/img/photo.png">
+                            </td>
+                            <th>姓名：</th>
+                            <td>amoln</td>
+                            <th>性别：</th>
+                            <td>男</td>
+                        </tr>
+                        <tr>
+                            <th>年龄：</th>
+                            <td>16</td>
+                            <th>身份：</th>
+                            <td>学生</td>
+                        </tr>
+                        <tr>
+                            <th>学科：</th>
+                            <td>python</td>
+                            <th>阶段：</th>
+                            <td>python阶段二</td>
+                        </tr>
+                        <tr>
+                            <th>联系方式：</th>
+                            <td>17789922277</td>
+                            <th>家庭住址：</th>
+                            <td colspan="2">北京市五方桥基地</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <div class="card-body">
-                <table class="table">
-                    <tr>
-                        <td rowspan="4">
-                            <img style="width: 75%;height: 75%" src="/static/img/photo.png">
-                        </td>
-                        <th>姓名：</th>
-                        <td>amoln</td>
-                        <th>性别：</th>
-                        <td>男</td>
-                    </tr>
-                    <tr>
-                        <th>年龄：</th>
-                        <td>16</td>
-                        <th>身份：</th>
-                        <td>学生</td>
-                    </tr>
-                    <tr>
-                        <th>学科：</th>
-                        <td>python</td>
-                        <th>阶段：</th>
-                        <td>python阶段二</td>
-                    </tr>
-                    <tr>
-                        <th>联系方式：</th>
-                        <td>17789922277</td>
-                        <th>家庭住址：</th>
-                        <td colspan="2">北京市五方桥基地</td>
-                    </tr>
-                </table>
-            </div>
-          </div>
         </div>
     </div>
     <!--课程表-->
     <div class="row">
-            <div class="col-lg-12">
-              <!-- Circle Buttons -->
-              <div class="card shadow mb-4">
+        <div class="col-lg-12">
+            <!-- Circle Buttons -->
+            <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary" style="text-align: center">课程表</h6>
+                    <h6 class="m-0 font-weight-bold text-primary" style="text-align: center">课程表</h6>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered">
@@ -65,17 +65,27 @@
                         {% for date in calendar %}
                             <tr>
                                 {% for t in date %}
-                                    {% if t  %}
-                                    <td style="color: red">{{ t }}</td>
+                                    {% if t == 'null' %}
+                                        <td>{{ t }}</td>
+                                    {% else %}
+                                        {% for key,value in t.items() %}
+                                            {% if key < today %}
+                                                <td style="color: royalblue">{{ key }}-{{ value }}</td>
+                                            {% endif %}
+                                            {% if key == today %}
+                                                <td style="color: gold">{{ key }}-{{ value }}</td>
+                                            {% endif %}
+                                            {% if key > today %}
+                                                <td style="color: red">{{ key }}-{{ value }}</td>
+                                            {% endif %}
+                                        {% endfor %}
                                     {% endif %}
-
-
                                 {% endfor %}
                             </tr>
                         {% endfor %}
                     </table>
                 </div>
-              </div>
             </div>
         </div>
+    </div>
 {% endblock %}
